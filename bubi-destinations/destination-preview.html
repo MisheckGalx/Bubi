@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bubi.com — Destination Pages</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ───────────────────────────────────────── */
+:root{
+  --terra:#C9622F; --terra-lt:#E07D50; --terra-dk:#8C3A15;
+  --savanna:#1E2E1A; --sav-mid:#2D4426; --sav-lt:#4A6741;
+  --gold:#D4A843; --gold-lt:#F0C96A;
+  --cream:#F5EFE0; --cream-dk:#EAE0C8;
+  --char:#1A1612; --stone:#8C7B6B; --fog:#C4B89A; --white:#FDFAF4;
+  --danger:#C0392B; --info:#2E86AB; --warn:#E67E22; --success:#27AE60;
+  --r:4px; --r-lg:8px;
+  --sh:0 4px 24px rgba(0,0,0,.28);
+  --sh-lg:0 16px 56px rgba(0,0,0,.42);
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'Outfit',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--fb);background:var(--char);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+button{font-family:var(--fb);cursor:pointer;border:none;background:none}
+
+/* grain */
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:120px}
+
+/* ── TYPE ─────────────────────────────────────────── */
+h1,h2,h3,h4{font-family:var(--fd);line-height:1.05}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--terra);font-family:var(--fb)}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--terra)}
+
+/* ── BUTTONS ──────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--fb);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:13px 28px;border-radius:var(--r);transition:all .2s;cursor:pointer;border:none}
+.btn-primary{background:var(--terra);color:var(--white)}
+.btn-primary:hover{background:var(--terra-lt);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--cream);border:1px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{border-color:var(--gold);background:rgba(212,168,67,.08)}
+.btn-gold{background:var(--gold);color:var(--char)}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px)}
+.btn-whatsapp{background:#25D366;color:#fff}
+.btn-whatsapp:hover{background:#1EBE57}
+
+/* ── BADGES ───────────────────────────────────────── */
+.badge{display:inline-block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:2px;font-weight:600;font-family:var(--fb)}
+.b-gold{background:rgba(212,168,67,.12);color:var(--gold-lt);border:1px solid rgba(212,168,67,.3)}
+.b-terra{background:rgba(201,98,47,.15);color:var(--terra-lt);border:1px solid rgba(201,98,47,.3)}
+.b-green{background:rgba(39,174,96,.15);color:#6FCF97;border:1px solid rgba(39,174,96,.3)}
+.b-blue{background:rgba(46,134,171,.15);color:#74C0FC;border:1px solid rgba(46,134,171,.3)}
+
+/* ── NAV ──────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:68px;background:rgba(26,22,18,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,168,67,.12)}
+.logo{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--white);letter-spacing:-.5px}
+.logo span{color:var(--terra)}
+.logo sup{font-family:var(--fb);font-size:10px;font-weight:300;letter-spacing:3px;color:var(--gold);vertical-align:super;margin-left:2px}
+.nav-links{display:flex;align-items:center;gap:8px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--fog);padding:8px 14px;border-radius:3px;transition:color .2s}
+.nav-links a:hover{color:var(--gold-lt)}
+.nav-cta{background:var(--terra);color:var(--white)!important;padding:10px 22px!important;border-radius:3px;transition:background .2s!important}
+.nav-cta:hover{background:var(--terra-lt)!important}
+
+/* ── PAGE NAV TABS ────────────────────────────────── */
+/* demo switcher */
+.demo-tabs{display:flex;justify-content:center;gap:12px;padding:100px 0 0;margin-bottom:0;position:relative;z-index:10}
+.demo-tab{padding:12px 28px;border:1px solid rgba(255,255,255,.15);border-radius:20px;background:transparent;color:var(--fog);font-size:13px;font-family:var(--fb);cursor:pointer;transition:all .2s}
+.demo-tab.active{background:var(--terra);border-color:var(--terra);color:#fff}
+
+/* ── PAGE: EXPLORE ────────────────────────────────── */
+#page-explore{display:block}
+#page-detail{display:none}
+
+/* ── EXPLORE HERO ─────────────────────────────────── */
+.explore-hero{position:relative;padding:88px 64px 60px;
+  background:linear-gradient(to bottom,rgba(26,22,18,.95),rgba(30,46,26,.9)),
+  url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1600&q=75&fit=crop') center/cover}
+.explore-hero-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.explore-title{font-size:clamp(40px,5.5vw,72px);font-weight:700;color:var(--white);margin-bottom:12px}
+.explore-desc{font-size:17px;font-weight:300;color:var(--fog);line-height:1.7;max-width:460px}
+
+/* ── FILTER BAR ───────────────────────────────────── */
+.filter-bar{background:var(--savanna);border-bottom:1px solid rgba(255,255,255,.07);padding:18px 64px;position:sticky;top:68px;z-index:100}
+.filter-inner{max-width:1280px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.filter-btn{padding:8px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:transparent;color:var(--fog);font-size:12px;font-family:var(--fb);cursor:pointer;transition:all .2s;font-weight:500}
+.filter-btn:hover{border-color:rgba(212,168,67,.4);color:var(--cream)}
+.filter-btn.active{border-color:var(--gold);background:rgba(212,168,67,.12);color:var(--gold-lt);font-weight:600}
+.filter-count{font-size:12px;color:var(--stone);margin-left:auto}
+
+/* ── DESTINATION CARDS GRID ───────────────────────── */
+.cards-section{padding:52px 64px 80px;max-width:1280px;margin:0 auto}
+
+/* Featured masonry row */
+.cards-featured{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:auto auto;gap:16px;margin-bottom:16px}
+.cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* Card base */
+.dest-card{position:relative;overflow:hidden;border-radius:var(--r-lg);cursor:pointer;display:block;border:1px solid rgba(255,255,255,.05);transition:border-color .3s}
+.dest-card:hover{border-color:rgba(201,98,47,.35)}
+
+.card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s cubic-bezier(.25,.46,.45,.94)}
+.dest-card:hover .card-img{transform:scale(1.07)}
+
+.card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,22,18,.94) 0%,rgba(26,22,18,.2) 55%,transparent 100%);transition:opacity .3s}
+.dest-card:hover .card-overlay{opacity:.85}
+
+/* Arrow */
+.card-arrow{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(6px);transition:all .3s;color:#fff;font-size:16px;background:rgba(0,0,0,0)}
+.dest-card:hover .card-arrow{opacity:1;transform:translateY(0);background:var(--terra);border-color:var(--terra)}
+
+/* UNESCO ribbon */
+.card-ribbon{position:absolute;top:18px;left:18px;display:flex;gap:6px;flex-wrap:wrap}
+
+/* Info */
+.card-info{position:absolute;bottom:0;left:0;right:0;padding:24px 24px 20px}
+.card-tag{margin-bottom:10px}
+.card-name{font-family:var(--fd);font-weight:700;color:var(--white);margin-bottom:6px}
+.card-meta{font-size:13px;color:var(--fog);display:flex;align-items:center;gap:6px}
+.card-price{font-family:var(--fd);font-weight:700;color:var(--gold)}
+.card-price-sub{font-family:var(--fb);font-size:11px;font-weight:300;color:var(--stone)}
+
+/* Featured card: tall left */
+.dest-card.big{grid-row:1/3}
+.dest-card.big .card-img{height:540px}
+.dest-card.big .card-name{font-size:32px;margin-bottom:8px}
+.dest-card:not(.big) .card-img{height:255px}
+.dest-card:not(.big) .card-name{font-size:21px}
+
+/* Row cards */
+.cards-row .dest-card .card-img{height:240px}
+.cards-row .dest-card .card-name{font-size:20px}
+
+/* ── COST WIDGET (card inline) ────────────────────── */
+.card-cost-strip{display:flex;gap:16px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap}
+.cost-pill{display:flex;flex-direction:column;gap:2px}
+.cost-pill-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone)}
+.cost-pill-val{font-size:13px;font-weight:600;color:var(--gold-lt)}
+
+/* Hover detail strip that appears */
+.card-hover-strip{position:absolute;bottom:0;left:0;right:0;background:rgba(26,22,18,.97);border-top:1px solid rgba(212,168,67,.2);padding:16px 20px;transform:translateY(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+.dest-card:hover .card-hover-strip{transform:translateY(0)}
+.hover-strip-inner{display:flex;gap:24px;align-items:center;justify-content:space-between}
+.hover-costs{display:flex;gap:16px}
+.hover-cost-item{text-align:center}
+.hover-cost-val{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--gold);display:block}
+.hover-cost-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone)}
+.hover-cta{background:var(--terra);color:#fff;padding:10px 18px;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;font-family:var(--fb);border:none;cursor:pointer;transition:background .2s}
+.hover-cta:hover{background:var(--terra-lt)}
+
+/* ── DESTINATION DETAIL PAGE ──────────────────────── */
+#page-detail{flex-direction:column}
+
+/* Detail hero */
+.detail-hero{position:relative;height:75vh;min-height:520px;display:flex;align-items:flex-end}
+.detail-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:background-image .6s}
+.detail-hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,22,18,1) 0%,rgba(26,22,18,.5) 40%,rgba(26,22,18,.1) 100%)}
+.detail-hero-content{position:relative;z-index:2;padding:0 64px 52px;width:100%}
+.detail-breadcrumb{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;cursor:pointer}
+.detail-breadcrumb:hover{color:var(--gold-lt)}
+.detail-title{font-size:clamp(48px,6.5vw,88px);font-weight:700;color:var(--white);line-height:1.0;margin-bottom:12px}
+.detail-province{font-size:15px;color:var(--fog);display:flex;align-items:center;gap:8px;margin-bottom:28px}
+.detail-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Sticky nav tabs */
+.detail-tabs{background:var(--savanna);border-bottom:1px solid rgba(255,255,255,.07);display:flex;padding:0 64px;position:sticky;top:68px;z-index:90}
+.detail-tab{padding:18px 24px;border:none;background:transparent;color:var(--stone);border-bottom:2px solid transparent;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:var(--fb)}
+.detail-tab:hover{color:var(--fog)}
+.detail-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* Detail body */
+.detail-body{padding:56px 64px 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start}
+
+/* Left col */
+.detail-desc{font-size:17px;font-weight:300;color:var(--fog);line-height:1.85;margin-bottom:48px}
+.detail-highlights{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:48px}
+.highlight-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-lg);padding:22px}
+.highlight-icon{font-size:24px;margin-bottom:10px}
+.highlight-title{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;font-family:var(--fb)}
+.highlight-content{font-size:14px;color:var(--cream);line-height:1.6}
+
+/* Best months pills */
+.months-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px}
+.month-pill{padding:7px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);font-size:12px;color:var(--fog);font-family:var(--fb);transition:all .2s}
+.month-pill.peak{border-color:rgba(39,174,96,.4);background:rgba(39,174,96,.1);color:#6FCF97}
+
+/* Gallery */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:48px}
+.gallery img{width:100%;height:160px;object-fit:cover;border-radius:var(--r);transition:transform .4s}
+.gallery img:hover{transform:scale(1.02)}
+.gallery img:first-child{grid-column:1/-1;height:260px}
+
+/* Activities in detail */
+.activities-list{display:flex;flex-direction:column;gap:14px;margin-bottom:48px}
+.activity-row{display:grid;grid-template-columns:100px 1fr auto;gap:20px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-lg);padding:16px;transition:border-color .3s}
+.activity-row:hover{border-color:rgba(201,98,47,.3)}
+.activity-row img{width:100px;height:70px;object-fit:cover;border-radius:var(--r)}
+.act-name{font-family:var(--fd);font-size:18px;font-weight:600;color:var(--white);margin-bottom:4px}
+.act-meta{font-size:12px;color:var(--stone);display:flex;gap:12px}
+.act-price-big{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold);white-space:nowrap}
+.act-price-sub{font-size:11px;color:var(--stone);font-family:var(--fb)}
+
+/* Accommodations */
+.accomm-list{display:flex;flex-direction:column;gap:14px}
+.accomm-card{display:grid;grid-template-columns:160px 1fr;border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:all .3s;background:rgba(255,255,255,.03)}
+.accomm-card:hover{border-color:rgba(201,98,47,.3);transform:translateY(-3px);box-shadow:var(--sh)}
+.accomm-card img{width:160px;height:130px;object-fit:cover}
+.accomm-body{padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between}
+.accomm-name{font-family:var(--fd);font-size:19px;font-weight:600;color:var(--white);margin-bottom:4px}
+.accomm-type{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);margin-bottom:8px;font-family:var(--fb)}
+.accomm-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.accomm-price{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--gold)}
+.accomm-price sub{font-family:var(--fb);font-size:11px;font-weight:300;color:var(--stone);vertical-align:baseline}
+.stars{color:var(--gold);font-size:13px;letter-spacing:1px}
+
+/* ── COST WIDGET (sidebar) ────────────────────────── */
+.cost-widget{position:sticky;top:100px}
+.widget-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px}
+.widget-header{padding:22px 24px 0}
+.widget-title{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--white);margin-bottom:16px}
+
+/* Tier tabs */
+.tier-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:var(--r);overflow:hidden;margin-bottom:20px}
+.tier-tab{padding:10px 6px;text-align:center;border:none;background:rgba(255,255,255,.03);color:var(--stone);font-size:11px;font-family:var(--fb);cursor:pointer;transition:all .2s;font-weight:500}
+.tier-tab:hover{background:rgba(255,255,255,.06);color:var(--fog)}
+.tier-tab.active{background:var(--terra);color:#fff;font-weight:600}
+.tier-tab-icon{font-size:18px;display:block;margin-bottom:4px}
+
+/* Cost rows */
+.cost-rows{padding:0 24px 8px}
+.cost-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.cost-row:last-child{border-bottom:none}
+.cost-row-left{display:flex;align-items:center;gap:12px}
+.cost-row-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.icon-hotel{background:rgba(201,98,47,.15)}
+.icon-meals{background:rgba(39,174,96,.15)}
+.icon-activities{background:rgba(212,168,67,.12)}
+.icon-transport{background:rgba(46,134,171,.15)}
+.cost-row-label{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);font-family:var(--fb);margin-bottom:2px}
+.cost-row-range{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--white)}
+.cost-row-unit{font-family:var(--fb);font-size:11px;color:var(--stone);font-weight:300}
+
+/* Total box */
+.total-box{margin:0 24px 20px;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.22);border-radius:var(--r);padding:18px 20px;display:flex;justify-content:space-between;align-items:center}
+.total-label-sm{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-family:var(--fb);margin-bottom:4px}
+.total-value{font-family:var(--fd);font-size:30px;font-weight:700;color:var(--white)}
+.total-value sub{font-family:var(--fb);font-size:12px;font-weight:300;color:var(--stone);vertical-align:baseline}
+.total-days{font-size:11px;color:var(--stone);font-family:var(--fb)}
+
+/* Progress bars */
+.bar-wrap{margin-top:6px;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.bar{height:100%;border-radius:2px;background:linear-gradient(to right,var(--terra),var(--gold))}
+
+/* Day estimator */
+.day-est{padding:0 24px 20px}
+.day-est-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:12px;font-family:var(--fb)}
+.day-slider{display:flex;gap:8px}
+.day-btn{flex:1;padding:10px;border:1px solid rgba(255,255,255,.1);background:transparent;border-radius:3px;color:var(--fog);font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--fb)}
+.day-btn:hover,.day-btn.active{background:var(--terra);border-color:var(--terra);color:#fff;font-weight:600}
+
+/* Widget actions */
+.widget-actions{padding:0 24px 24px;display:flex;flex-direction:column;gap:10px}
+.widget-actions .btn{width:100%;justify-content:center}
+
+/* Destination switcher pills (sidebar) */
+.dest-switcher{display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--r-lg);padding:16px;margin-bottom:16px}
+.dest-switch-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:10px;font-family:var(--fb)}
+.dest-sw-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r);border:1px solid transparent;background:transparent;color:var(--fog);cursor:pointer;transition:all .2s;text-align:left;font-family:var(--fb)}
+.dest-sw-btn:hover{background:rgba(255,255,255,.05);color:var(--cream)}
+.dest-sw-btn.active{background:rgba(201,98,47,.12);border-color:rgba(201,98,47,.3);color:var(--terra-lt)}
+.dest-sw-thumb{width:36px;height:36px;border-radius:3px;object-fit:cover;flex-shrink:0}
+.dest-sw-name{font-size:13px;font-weight:500}
+.dest-sw-tag{font-size:10px;color:var(--stone)}
+
+/* ── REVEAL ───────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media(max-width:1024px){
+  .cards-featured{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .dest-card.big{grid-row:auto}
+  .dest-card.big .card-img,.dest-card:not(.big) .card-img{height:260px}
+  .detail-body{grid-template-columns:1fr;gap:40px}
+  .cost-widget{position:static}
+}
+@media(max-width:768px){
+  nav{padding:0 24px}
+  .explore-hero,.filter-bar,.cards-section,.detail-body,.detail-hero-content,.detail-tabs{padding-left:24px;padding-right:24px}
+  .cards-featured,.cards-row{grid-template-columns:1fr}
+  .detail-title{font-size:42px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Bubi<span>.</span><sup>com</sup></div>
+  <ul class="nav-links">
+    <li><a href="#">Destinations</a></li>
+    <li><a href="#">Plan Your Trip</a></li>
+    <li><a href="#">Activities</a></li>
+    <li><a href="#" class="nav-cta">Plan Trip</a></li>
+  </ul>
+</nav>
+
+<!-- DEMO SWITCHER -->
+<div class="demo-tabs">
+  <button class="demo-tab active" onclick="showPage('explore')">🗺️ Destination Cards</button>
+  <button class="demo-tab" onclick="showPage('detail')">📍 Detail Page</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  PAGE 1: EXPLORE / CARDS                       -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-explore">
+
+  <!-- Hero -->
+  <div class="explore-hero">
+    <div class="explore-hero-inner">
+      <div>
+        <div class="eyebrow reveal in">Explore Zimbabwe</div>
+        <h1 class="explore-title reveal in">All <em style="font-style:italic;color:#E07D50">Destinations</em></h1>
+      </div>
+      <p class="explore-desc reveal in" style="animation-delay:.2s">5 extraordinary places — each with honest pricing, safety notes, and structured travel info so you can plan with confidence.</p>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <button class="filter-btn active" onclick="filterCards(this,'All')">All</button>
+      <button class="filter-btn" onclick="filterCards(this,'UNESCO Heritage')">UNESCO Heritage</button>
+      <button class="filter-btn" onclick="filterCards(this,'Big Five Safari')">Big Five Safari</button>
+      <button class="filter-btn" onclick="filterCards(this,'Lake Escape')">Lake Escape</button>
+      <button class="filter-btn" onclick="filterCards(this,'Ancient Ruins')">Ancient Ruins</button>
+      <button class="filter-btn" onclick="filterCards(this,'Mountain Escape')">Mountain Escape</button>
+      <span class="filter-count" id="filter-count">5 destinations</span>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards-section">
+
+    <!-- Featured masonry top row -->
+    <div class="cards-featured" id="featured-row">
+
+      <!-- BIG: Victoria Falls -->
+      <div class="dest-card big reveal in" data-tag="UNESCO Heritage" onclick="showPage('detail','victoria-falls')" style="cursor:pointer">
+        <img class="card-img" src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80&fit=crop" alt="Victoria Falls" />
+        <div class="card-overlay"></div>
+        <div class="card-ribbon">
+          <span class="badge b-gold">UNESCO Heritage</span>
+          <span class="badge b-terra">🔥 Most Visited</span>
+        </div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-tag"><span class="badge b-gold">💦 The Smoke That Thunders</span></div>
+          <div class="card-name">Victoria Falls</div>
+          <div class="card-meta">📍 Matabeleland North</div>
+          <div class="card-cost-strip">
+            <div class="cost-pill"><span class="cost-pill-label">Hotel from</span><span class="cost-pill-val">$80/night</span></div>
+            <div class="cost-pill"><span class="cost-pill-label">Activities from</span><span class="cost-pill-val">$30</span></div>
+            <div class="cost-pill"><span class="cost-pill-label">Best</span><span class="cost-pill-val">May–Sep</span></div>
+          </div>
+        </div>
+        <div class="card-hover-strip">
+          <div class="hover-strip-inner">
+            <div class="hover-costs">
+              <div class="hover-cost-item"><span class="hover-cost-val">$80–150</span><span class="hover-cost-label">Hotel/night</span></div>
+              <div class="hover-cost-item"><span class="hover-cost-val">$15–30</span><span class="hover-cost-label">Meals/day</span></div>
+              <div class="hover-cost-item"><span class="hover-cost-val">$45–120</span><span class="hover-cost-label">Activities</span></div>
+            </div>
+            <button class="hover-cta" onclick="showPage('detail','victoria-falls')">Explore →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hwange -->
+      <div class="dest-card reveal in" data-tag="Big Five Safari" onclick="showPage('detail','hwange')" style="cursor:pointer;animation-delay:.1s">
+        <img class="card-img" src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=700&q=80&fit=crop" alt="Hwange" />
+        <div class="card-overlay"></div>
+        <div class="card-ribbon"><span class="badge b-green">Big Five Safari</span></div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-name">Hwange National Park</div>
+          <div class="card-meta">📍 Matabeleland North</div>
+          <div class="card-cost-strip">
+            <div class="cost-pill"><span class="cost-pill-label">Lodge from</span><span class="cost-pill-val">$90/night</span></div>
+            <div class="cost-pill"><span class="cost-pill-label">Game drive</span><span class="cost-pill-val">$85</span></div>
+          </div>
+        </div>
+        <div class="card-hover-strip">
+          <div class="hover-strip-inner">
+            <div class="hover-costs">
+              <div class="hover-cost-item"><span class="hover-cost-val">$90–200</span><span class="hover-cost-label">Lodge/night</span></div>
+              <div class="hover-cost-item"><span class="hover-cost-val">$85–180</span><span class="hover-cost-label">Activities</span></div>
+            </div>
+            <button class="hover-cta">Explore →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kariba -->
+      <div class="dest-card reveal in" data-tag="Lake Escape" onclick="showPage('detail','lake-kariba')" style="cursor:pointer;animation-delay:.2s">
+        <img class="card-img" src="https://images.unsplash.com/photo-1455218873509-8097305ee378?w=700&q=80&fit=crop" alt="Kariba" />
+        <div class="card-overlay"></div>
+        <div class="card-ribbon"><span class="badge b-blue">Lake Escape</span></div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-name">Lake Kariba</div>
+          <div class="card-meta">📍 Mashonaland West</div>
+          <div class="card-cost-strip">
+            <div class="cost-pill"><span class="cost-pill-label">Houseboat from</span><span class="cost-pill-val">$200/night</span></div>
+          </div>
+        </div>
+        <div class="card-hover-strip">
+          <div class="hover-strip-inner">
+            <div class="hover-costs">
+              <div class="hover-cost-item"><span class="hover-cost-val">$80–400</span><span class="hover-cost-label">Stay/night</span></div>
+              <div class="hover-cost-item"><span class="hover-cost-val">$45–120</span><span class="hover-cost-label">Activities</span></div>
+            </div>
+            <button class="hover-cta">Explore →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="cards-row" id="regular-row">
+
+      <!-- Great Zimbabwe -->
+      <div class="dest-card reveal" data-tag="Ancient Ruins" onclick="showPage('detail','great-zimbabwe')" style="cursor:pointer">
+        <img class="card-img" src="https://images.unsplash.com/photo-1591020561829-14af7a30e0af?w=700&q=80&fit=crop" alt="Great Zimbabwe" />
+        <div class="card-overlay"></div>
+        <div class="card-ribbon">
+          <span class="badge b-gold">UNESCO Heritage</span>
+          <span class="badge b-terra">Ancient Ruins</span>
+        </div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-name">Great Zimbabwe</div>
+          <div class="card-meta">📍 Masvingo Province</div>
+          <div class="card-cost-strip">
+            <div class="cost-pill"><span class="cost-pill-label">Entry + guide</span><span class="cost-pill-val">$25</span></div>
+            <div class="cost-pill"><span class="cost-pill-label">Hotel from</span><span class="cost-pill-val">$50/night</span></div>
+          </div>
+        </div>
+        <div class="card-hover-strip">
+          <div class="hover-strip-inner">
+            <div class="hover-costs">
+              <div class="hover-cost-item"><span class="hover-cost-val">$50–100</span><span class="hover-cost-label">Hotel/night</span></div>
+              <div class="hover-cost-item"><span class="hover-cost-val">$25–60</span><span class="hover-cost-label">Activities</span></div>
+            </div>
+            <button class="hover-cta">Explore →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eastern Highlands -->
+      <div class="dest-card reveal" data-tag="Mountain Escape" onclick="showPage('detail','eastern-highlands')" style="cursor:pointer;animation-delay:.1s">
+        <img class="card-img" src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=700&q=80&fit=crop" alt="Eastern Highlands" />
+        <div class="card-overlay"></div>
+        <div class="card-ribbon"><span class="badge b-green">Mountain Escape</span></div>
+        <div class="card-arrow">→</div>
+        <div class="card-info">
+          <div class="card-name">Eastern Highlands</div>
+          <div class="card-meta">📍 Manicaland Province</div>
+          <div class="card-cost-strip">
+            <div class="cost-pill"><span class="cost-pill-label">Lodge from</span><span class="cost-pill-val">$50/night</span></div>
+            <div class="cost-pill"><span class="cost-pill-label">Hiking from</span><span class="cost-pill-val">$10</span></div>
+          </div>
+        </div>
+        <div class="card-hover-strip">
+          <div class="hover-strip-inner">
+            <div class="hover-costs">
+              <div class="hover-cost-item"><span class="hover-cost-val">$50–110</span><span class="hover-cost-label">Lodge/night</span></div>
+              <div class="hover-cost-item"><span class="hover-cost-val">$30–80</span><span class="hover-cost-label">Activities</span></div>
+            </div>
+            <button class="hover-cta">Explore →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA card -->
+      <div style="border-radius:var(--r-lg);background:linear-gradient(135deg,var(--terra-dk),var(--terra));padding:40px 32px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(201,98,47,.3);position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=400&q=40') center/cover;opacity:.07"></div>
+        <div style="position:relative;z-index:1">
+          <div style="font-size:36px;margin-bottom:16px">🌍</div>
+          <h3 style="font-family:var(--fd);font-size:28px;font-weight:700;color:var(--white);margin-bottom:12px;line-height:1.1">Not Sure Where to Go?</h3>
+          <p style="font-size:14px;color:rgba(255,255,255,.75);line-height:1.65;margin-bottom:28px">Let our Trip Planner build a custom itinerary based on your interests, budget, and time available.</p>
+          <button onclick="alert('→ Opens /planner')" class="btn" style="background:var(--white);color:var(--terra-dk);font-size:12px;padding:13px 24px;width:100%;justify-content:center">Build My Itinerary →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  PAGE 2: DESTINATION DETAIL                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-detail">
+
+  <!-- Hero -->
+  <div class="detail-hero" id="detail-hero">
+    <div class="detail-hero-bg" id="detail-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1800&q=85&fit=crop')"></div>
+    <div class="detail-hero-content">
+      <div class="detail-breadcrumb" onclick="showPage('explore')">← All Destinations</div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap" id="detail-badges">
+        <span class="badge b-gold">UNESCO Heritage</span>
+        <span class="badge b-terra">🔥 Most Visited</span>
+      </div>
+      <h1 class="detail-title" id="detail-title">Victoria Falls</h1>
+      <div class="detail-province" id="detail-province">📍 Matabeleland North, Zimbabwe &nbsp;·&nbsp; 🌤️ Best: May–Sep</div>
+      <div class="detail-actions">
+        <button class="btn btn-primary" onclick="alert('→ Opens /planner?dest=victoria-falls')">Plan a Trip Here</button>
+        <button class="btn btn-whatsapp">💬 WhatsApp Enquiry</button>
+        <button class="btn btn-ghost">🗺️ View on Map</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky tabs -->
+  <div class="detail-tabs">
+    <button class="detail-tab active" onclick="switchTab(this,'tab-overview')">Overview</button>
+    <button class="detail-tab" onclick="switchTab(this,'tab-activities')">Activities</button>
+    <button class="detail-tab" onclick="switchTab(this,'tab-stays')">Where to Stay</button>
+    <button class="detail-tab" onclick="switchTab(this,'tab-costs')">Full Cost Breakdown</button>
+  </div>
+
+  <!-- Body -->
+  <div class="detail-body">
+
+    <!-- ── LEFT COLUMN ── -->
+    <div>
+
+      <!-- TAB: OVERVIEW -->
+      <div id="tab-overview">
+        <p class="detail-desc" id="detail-desc">Victoria Falls, known locally as <em>"Mosi-oa-Tunya"</em> — The Smoke That Thunders — is one of the world's most spectacular natural wonders. Straddling the Zimbabwe–Zambia border, the falls stretch 1,708 metres wide and plunge 108 metres into the Zambezi Gorge. The spray can be seen from 50km away. Beyond the falls, the town offers world-class adventure activities, luxury lodges, and easy access to Hwange National Park.</p>
+
+        <!-- Highlights grid -->
+        <div class="detail-highlights">
+          <div class="highlight-box reveal">
+            <div class="highlight-icon">📅</div>
+            <div class="highlight-title">Best Time to Visit</div>
+            <div class="highlight-content" id="detail-months">May to September. Low water (Aug–Oct) = clearer views. High water (Feb–May) = maximum spray.</div>
+          </div>
+          <div class="highlight-box reveal" style="transition-delay:.08s">
+            <div class="highlight-icon">🛡️</div>
+            <div class="highlight-title">Safety Notes</div>
+            <div class="highlight-content" id="detail-safety">Generally safe for tourists. Use a registered guide for gorge walks. Keep bags secure in town. Malaria prophylaxis recommended.</div>
+          </div>
+          <div class="highlight-box reveal" style="transition-delay:.12s">
+            <div class="highlight-icon">💡</div>
+            <div class="highlight-title">Travel Tip</div>
+            <div class="highlight-content" id="detail-tip">Visit at dawn to beat crowds. Bring a waterproof bag — you WILL get soaked. The Zambia side offers better views in high-water season.</div>
+          </div>
+          <div class="highlight-box reveal" style="transition-delay:.16s">
+            <div class="highlight-icon">✈️</div>
+            <div class="highlight-title">Getting There</div>
+            <div class="highlight-content">Daily flights from Harare (~1hr, $80–150). Road from Bulawayo 439km. KAZA UniVisa covers both Zimbabwe & Zambia.</div>
+          </div>
+        </div>
+
+        <!-- Best months -->
+        <div style="margin-bottom:32px">
+          <div style="font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--stone);margin-bottom:12px;font-family:var(--fb)">Best Months to Visit</div>
+          <div class="months-row">
+            <span class="month-pill">Jan</span><span class="month-pill">Feb</span><span class="month-pill">Mar</span><span class="month-pill">Apr</span>
+            <span class="month-pill peak">May</span><span class="month-pill peak">Jun</span><span class="month-pill peak">Jul</span><span class="month-pill peak">Aug</span><span class="month-pill peak">Sep</span>
+            <span class="month-pill">Oct</span><span class="month-pill">Nov</span><span class="month-pill">Dec</span>
+          </div>
+          <div style="display:flex;gap:16px;margin-top:10px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--stone)"><span style="width:12px;height:12px;border-radius:50%;background:#6FCF97;display:inline-block"></span>Peak season</div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--stone)"><span style="width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.12);display:inline-block;border:1px solid rgba(255,255,255,.2)"></span>Off-peak</div>
+          </div>
+        </div>
+
+        <!-- Gallery -->
+        <div style="margin-bottom:16px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--stone);font-family:var(--fb)">Photo Gallery</div>
+        <div class="gallery">
+          <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=75&fit=crop" alt="Victoria Falls" />
+          <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=500&q=75&fit=crop" alt="Zambezi" />
+          <img src="https://images.unsplash.com/photo-1455218873509-8097305ee378?w=500&q=75&fit=crop" alt="Sunset" />
+          <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=500&q=75&fit=crop" alt="Wildlife" />
+        </div>
+      </div>
+
+      <!-- TAB: ACTIVITIES -->
+      <div id="tab-activities" style="display:none">
+        <h2 style="font-family:var(--fd);font-size:32px;color:var(--white);margin-bottom:28px">Top Activities</h2>
+        <div class="activities-list">
+          <div class="activity-row reveal in">
+            <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=200&q=70&fit=crop" alt="Bungee" />
+            <div>
+              <div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge b-terra">Extreme</span><span class="badge b-terra">Adventure</span></div>
+              <div class="act-name">Victoria Falls Bungee Jump</div>
+              <div class="act-meta"><span>⏱ 2hrs</span><span>📍 Falls Bridge</span></div>
+            </div>
+            <div style="text-align:right">
+              <div class="act-price-big">$155–165</div>
+              <div class="act-price-sub">per person</div>
+              <button class="btn btn-gold" style="margin-top:10px;padding:9px 18px;font-size:11px">Book Now</button>
+            </div>
+          </div>
+          <div class="activity-row reveal in" style="transition-delay:.08s">
+            <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=200&q=70&fit=crop" alt="Rafting" />
+            <div>
+              <div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge b-blue">Water</span><span class="badge b-terra">Challenging</span></div>
+              <div class="act-name">Zambezi White Water Rafting</div>
+              <div class="act-meta"><span>⏱ 8hrs</span><span>📍 Zambezi Gorge</span></div>
+            </div>
+            <div style="text-align:right">
+              <div class="act-price-big">$110–130</div>
+              <div class="act-price-sub">per person</div>
+              <button class="btn btn-gold" style="margin-top:10px;padding:9px 18px;font-size:11px">Book Now</button>
+            </div>
+          </div>
+          <div class="activity-row reveal in" style="transition-delay:.16s">
+            <img src="https://images.unsplash.com/photo-1455218873509-8097305ee378?w=200&q=70&fit=crop" alt="Cruise" />
+            <div>
+              <div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge b-green">Leisure</span><span class="badge b-green">Easy</span></div>
+              <div class="act-name">Sunset Zambezi Cruise</div>
+              <div class="act-meta"><span>⏱ 2hrs</span><span>📍 Zambezi River</span></div>
+            </div>
+            <div style="text-align:right">
+              <div class="act-price-big">$40–55</div>
+              <div class="act-price-sub">per person</div>
+              <button class="btn btn-gold" style="margin-top:10px;padding:9px 18px;font-size:11px">Book Now</button>
+            </div>
+          </div>
+          <div class="activity-row reveal in" style="transition-delay:.24s">
+            <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=200&q=70&fit=crop" alt="Walk" />
+            <div>
+              <div style="display:flex;gap:6px;margin-bottom:8px"><span class="badge b-gold">Scenic</span><span class="badge b-green">Easy</span></div>
+              <div class="act-name">Falls Rainforest Walk</div>
+              <div class="act-meta"><span>⏱ 2hrs</span><span>📍 Falls National Park</span></div>
+            </div>
+            <div style="text-align:right">
+              <div class="act-price-big">$30</div>
+              <div class="act-price-sub">park entry</div>
+              <button class="btn btn-gold" style="margin-top:10px;padding:9px 18px;font-size:11px">Self-Guided</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: STAYS -->
+      <div id="tab-stays" style="display:none">
+        <h2 style="font-family:var(--fd);font-size:32px;color:var(--white);margin-bottom:28px">Where to Stay</h2>
+        <div class="accomm-list">
+          <div class="accomm-card">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=320&q=70&fit=crop" alt="Victoria Falls Hotel" />
+            <div class="accomm-body">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                  <div class="accomm-name">The Victoria Falls Hotel</div>
+                  <div class="stars">★★★★★</div>
+                </div>
+                <div class="accomm-type">🏨 Heritage Hotel · Luxury</div>
+                <p style="font-size:13px;color:var(--fog);line-height:1.55">Colonial grandeur since 1904 — the grande dame of Victoria Falls hospitality. Walking distance to the Falls.</p>
+              </div>
+              <div class="accomm-footer">
+                <div class="accomm-price">$350–650<sub>/night</sub></div>
+                <button class="btn btn-primary" style="padding:9px 18px;font-size:11px">Book →</button>
+              </div>
+            </div>
+          </div>
+          <div class="accomm-card">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=320&q=70&fit=crop" alt="Ilala Lodge" />
+            <div class="accomm-body">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                  <div class="accomm-name">Ilala Lodge</div>
+                  <div class="stars">★★★★</div>
+                </div>
+                <div class="accomm-type">🌿 Lodge · Mid-Range</div>
+                <p style="font-size:13px;color:var(--fog);line-height:1.55">Beautiful gardens, superb food, walking distance to the Falls. The best value mid-range option in town.</p>
+              </div>
+              <div class="accomm-footer">
+                <div class="accomm-price">$180–280<sub>/night</sub></div>
+                <button class="btn btn-primary" style="padding:9px 18px;font-size:11px">Book →</button>
+              </div>
+            </div>
+          </div>
+          <div class="accomm-card">
+            <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=320&q=70&fit=crop" alt="Shoestrings" />
+            <div class="accomm-body">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                  <div class="accomm-name">Shoestrings Backpackers</div>
+                  <div class="stars">★★</div>
+                </div>
+                <div class="accomm-type">🎒 Hostel · Budget</div>
+                <p style="font-size:13px;color:var(--fog);line-height:1.55">The classic budget base camp. Social atmosphere, great travel info, clean dorms and private rooms.</p>
+              </div>
+              <div class="accomm-footer">
+                <div class="accomm-price">$18–40<sub>/night</sub></div>
+                <button class="btn btn-primary" style="padding:9px 18px;font-size:11px">Book →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: COSTS FULL -->
+      <div id="tab-costs" style="display:none">
+        <h2 style="font-family:var(--fd);font-size:32px;color:var(--white);margin-bottom:8px">Full Cost Breakdown</h2>
+        <p style="color:var(--stone);font-size:14px;margin-bottom:36px">All prices in USD. Based on real provider data updated regularly.</p>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <!-- Budget tier -->
+          <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-lg);padding:28px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+              <h3 style="font-family:var(--fd);font-size:24px;color:var(--white)">🎒 Budget</h3>
+              <span style="font-size:12px;color:var(--stone);font-family:var(--fb)">Hostels · local transport · self-catering</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+              <div style="background:rgba(255,255,255,.05);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Hotel/night</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold)">$25–50</div></div>
+              <div style="background:rgba(255,255,255,.05);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Meals/day</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold)">$8–15</div></div>
+              <div style="background:rgba(255,255,255,.05);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Activities</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold)">$20–60</div></div>
+            </div>
+          </div>
+          <!-- Mid tier -->
+          <div style="background:rgba(201,98,47,.06);border:1px solid rgba(201,98,47,.2);border-radius:var(--r-lg);padding:28px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+              <h3 style="font-family:var(--fd);font-size:24px;color:var(--white)">✈️ Mid-Range <span style="font-size:14px;color:var(--terra-lt);font-family:var(--fb);font-style:normal;font-weight:400">Most Popular</span></h3>
+              <span style="font-size:12px;color:var(--stone);font-family:var(--fb)">Lodges · guided tours · restaurants</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+              <div style="background:rgba(255,255,255,.06);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Hotel/night</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--terra-lt)">$80–150</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Meals/day</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--terra-lt)">$15–30</div></div>
+              <div style="background:rgba(255,255,255,.06);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Activities</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--terra-lt)">$45–120</div></div>
+            </div>
+          </div>
+          <!-- Luxury tier -->
+          <div style="background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.18);border-radius:var(--r-lg);padding:28px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+              <h3 style="font-family:var(--fd);font-size:24px;color:var(--white)">🌟 Luxury</h3>
+              <span style="font-size:12px;color:var(--stone);font-family:var(--fb)">Private camps · exclusive access · fine dining</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+              <div style="background:rgba(255,255,255,.05);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Hotel/night</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold-lt)">$200–600</div></div>
+              <div style="background:rgba(255,255,255,.05);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Meals/day</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold-lt)">$30–80</div></div>
+              <div style="background:rgba(255,255,255,.05);border-radius:var(--r);padding:16px"><div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:6px;font-family:var(--fb)">Activities</div><div style="font-family:var(--fd);font-size:22px;font-weight:700;color:var(--gold-lt)">$100–300</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end left col -->
+
+    <!-- ── RIGHT: COST WIDGET ── -->
+    <div class="cost-widget">
+
+      <!-- Destination switcher -->
+      <div class="dest-switcher">
+        <div class="dest-switch-title">Switch Destination</div>
+        <button class="dest-sw-btn active" onclick="switchDest(this,'victoria-falls')">
+          <img class="dest-sw-thumb" src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=80&q=60" alt="" />
+          <div><div class="dest-sw-name">Victoria Falls</div><div class="dest-sw-tag">UNESCO Heritage</div></div>
+        </button>
+        <button class="dest-sw-btn" onclick="switchDest(this,'hwange')">
+          <img class="dest-sw-thumb" src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=80&q=60" alt="" />
+          <div><div class="dest-sw-name">Hwange</div><div class="dest-sw-tag">Big Five Safari</div></div>
+        </button>
+        <button class="dest-sw-btn" onclick="switchDest(this,'lake-kariba')">
+          <img class="dest-sw-thumb" src="https://images.unsplash.com/photo-1455218873509-8097305ee378?w=80&q=60" alt="" />
+          <div><div class="dest-sw-name">Lake Kariba</div><div class="dest-sw-tag">Lake Escape</div></div>
+        </button>
+        <button class="dest-sw-btn" onclick="switchDest(this,'great-zimbabwe')">
+          <img class="dest-sw-thumb" src="https://images.unsplash.com/photo-1591020561829-14af7a30e0af?w=80&q=60" alt="" />
+          <div><div class="dest-sw-name">Great Zimbabwe</div><div class="dest-sw-tag">Ancient Ruins</div></div>
+        </button>
+        <button class="dest-sw-btn" onclick="switchDest(this,'eastern-highlands')">
+          <img class="dest-sw-thumb" src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=80&q=60" alt="" />
+          <div><div class="dest-sw-name">Eastern Highlands</div><div class="dest-sw-tag">Mountain Escape</div></div>
+        </button>
+      </div>
+
+      <!-- Cost Widget Card -->
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title" id="widget-title">Victoria Falls</div>
+
+          <!-- Tier tabs -->
+          <div class="tier-tabs" id="tier-tabs">
+            <button class="tier-tab" onclick="switchTier(this,'budget')" title="Budget">
+              <span class="tier-tab-icon">🎒</span>Budget
+            </button>
+            <button class="tier-tab active" onclick="switchTier(this,'mid')" title="Mid-Range">
+              <span class="tier-tab-icon">✈️</span>Mid-Range
+            </button>
+            <button class="tier-tab" onclick="switchTier(this,'luxury')" title="Luxury">
+              <span class="tier-tab-icon">🌟</span>Luxury
+            </button>
+          </div>
+        </div>
+
+        <!-- Cost rows -->
+        <div class="cost-rows" id="cost-rows">
+          <div class="cost-row">
+            <div class="cost-row-left">
+              <div class="cost-row-icon icon-hotel">🏨</div>
+              <div><div class="cost-row-label">Accommodation</div><div class="bar-wrap"><div class="bar" style="width:65%"></div></div></div>
+            </div>
+            <div style="text-align:right">
+              <div class="cost-row-range" id="cr-hotel">$80–150</div>
+              <div class="cost-row-unit">/ night</div>
+            </div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-left">
+              <div class="cost-row-icon icon-meals">🍽️</div>
+              <div><div class="cost-row-label">Meals</div><div class="bar-wrap"><div class="bar" style="width:35%"></div></div></div>
+            </div>
+            <div style="text-align:right">
+              <div class="cost-row-range" id="cr-meals">$15–30</div>
+              <div class="cost-row-unit">/ day</div>
+            </div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-left">
+              <div class="cost-row-icon icon-activities">🦁</div>
+              <div><div class="cost-row-label">Activities</div><div class="bar-wrap"><div class="bar" style="width:52%"></div></div></div>
+            </div>
+            <div style="text-align:right">
+              <div class="cost-row-range" id="cr-act">$45–120</div>
+              <div class="cost-row-unit">/ activity</div>
+            </div>
+          </div>
+          <div class="cost-row">
+            <div class="cost-row-left">
+              <div class="cost-row-icon icon-transport">🚌</div>
+              <div><div class="cost-row-label">Transport</div><div class="bar-wrap"><div class="bar" style="width:40%"></div></div></div>
+            </div>
+            <div style="text-align:right">
+              <div class="cost-row-range" id="cr-trans">$20–80</div>
+              <div class="cost-row-unit">/ transfer</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Days estimator -->
+        <div class="day-est">
+          <div class="day-est-label">Estimate for how many days?</div>
+          <div class="day-slider">
+            <button class="day-btn" onclick="selectDays(this,3)">3</button>
+            <button class="day-btn active" onclick="selectDays(this,5)">5</button>
+            <button class="day-btn" onclick="selectDays(this,7)">7</button>
+            <button class="day-btn" onclick="selectDays(this,10)">10</button>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="total-box">
+          <div>
+            <div class="total-label-sm">Estimated Total</div>
+            <div class="total-days" id="total-days">5 days · mid-range · per person</div>
+          </div>
+          <div>
+            <div class="total-value" id="total-val">~$580–900</div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="widget-actions">
+          <button class="btn btn-primary" onclick="alert('→ Opens /planner')">Build Full Itinerary →</button>
+          <button class="btn btn-whatsapp">💬 Enquire via WhatsApp</button>
+          <button class="btn btn-ghost" style="font-size:11px;padding:10px">📋 Copy Cost Summary</button>
+        </div>
+      </div><!-- end widget-card -->
+
+    </div><!-- end cost-widget -->
+  </div><!-- end detail-body -->
+</div><!-- end page-detail -->
+
+<script>
+// ── DATA ──────────────────────────────────────────
+const DESTS = {
+  'victoria-falls': {
+    name:'Victoria Falls', province:'Matabeleland North',
+    bestMonths:'May–Sep', peakIdxs:[4,5,6,7,8],
+    badges:'<span class="badge b-gold">UNESCO Heritage</span><span class="badge b-terra">🔥 Most Visited</span>',
+    img:'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1800&q=85&fit=crop',
+    desc:'Victoria Falls, known locally as <em>"Mosi-oa-Tunya"</em> — The Smoke That Thunders — is one of the world\'s most spectacular natural wonders. The falls stretch 1,708 metres wide and plunge 108 metres into the Zambezi Gorge.',
+    safety:'Generally safe for tourists. Use a registered guide for gorge walks. Keep bags secure in town. Malaria prophylaxis recommended.',
+    tip:'Visit at dawn to beat crowds. Bring a waterproof bag — you WILL get soaked. The Zambia side offers better views in high-water season.',
+    months:'May to September. Low water (Aug–Oct) = clearer views. High water (Feb–May) = maximum spray.',
+    costs:{
+      budget:{hotel:'$25–50',meals:'$8–15',act:'$20–60',trans:'$10–30',totLow:250,totHigh:450},
+      mid:   {hotel:'$80–150',meals:'$15–30',act:'$45–120',trans:'$20–80',totLow:580,totHigh:900},
+      luxury:{hotel:'$200–600',meals:'$30–80',act:'$100–300',trans:'$60–150',totLow:1400,totHigh:2800},
+    }
+  },
+  'hwange': {
+    name:'Hwange National Park', province:'Matabeleland North',
+    bestMonths:'May–Oct', peakIdxs:[4,5,6,7,8,9],
+    badges:'<span class="badge b-green">Big Five Safari</span>',
+    img:'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1800&q=85&fit=crop',
+    desc:'Hwange National Park covers 14,651 sq km of pristine wilderness — Zimbabwe\'s flagship wildlife destination. Home to 40,000+ elephants, lions, leopards, wild dogs, and 400+ bird species.',
+    safety:'Always stay in your vehicle unless at designated walking areas. Malaria prophylaxis required. Follow guide instructions at all times.',
+    tip:'Book camps well in advance for peak season (Jul–Sep). Self-drive is possible but a guide adds enormous value.',
+    months:'May to October. The dry season concentrates wildlife at waterholes — July to September is spectacular.',
+    costs:{
+      budget:{hotel:'$30–60',meals:'$10–18',act:'$40–85',trans:'$20–50',totLow:200,totHigh:380},
+      mid:   {hotel:'$90–200',meals:'$18–35',act:'$85–180',trans:'$40–100',totLow:620,totHigh:1050},
+      luxury:{hotel:'$300–900',meals:'$40–100',act:'$150–400',trans:'$80–200',totLow:1800,totHigh:4000},
+    }
+  },
+  'lake-kariba': {
+    name:'Lake Kariba', province:'Mashonaland West',
+    bestMonths:'Apr–Oct', peakIdxs:[3,4,5,6,7,8,9],
+    badges:'<span class="badge b-blue">Lake Escape</span>',
+    img:'https://images.unsplash.com/photo-1455218873509-8097305ee378?w=1800&q=85&fit=crop',
+    desc:'Africa\'s largest man-made lake stretches 280km along the Zambezi Valley. Famous for its iconic dead trees rising from the water, spectacular sunsets, tiger fishing, and houseboat holidays.',
+    safety:'Do not swim in the lake — crocodiles and hippos are present. Follow guide instructions on houseboat safety at all times.',
+    tip:'A 3-night houseboat stay is the definitive Kariba experience. Book Kariba town transfers early — flights fill up fast.',
+    months:'April to October. The dry season (May–Oct) is best for wildlife viewing along the shores.',
+    costs:{
+      budget:{hotel:'$35–70',meals:'$10–20',act:'$30–70',trans:'$15–40',totLow:180,totHigh:350},
+      mid:   {hotel:'$80–300',meals:'$15–30',act:'$45–120',trans:'$30–80',totLow:500,totHigh:900},
+      luxury:{hotel:'$200–600',meals:'$35–80',act:'$100–250',trans:'$60–150',totLow:1200,totHigh:2600},
+    }
+  },
+  'great-zimbabwe': {
+    name:'Great Zimbabwe', province:'Masvingo Province',
+    bestMonths:'Apr–Sep', peakIdxs:[3,4,5,6,7,8],
+    badges:'<span class="badge b-gold">UNESCO Heritage</span><span class="badge b-terra">Ancient Ruins</span>',
+    img:'https://images.unsplash.com/photo-1591020561829-14af7a30e0af?w=1800&q=85&fit=crop',
+    desc:'The Great Zimbabwe National Monument is sub-Saharan Africa\'s largest ancient stone structure, built between the 11th and 15th centuries as the capital of the Kingdom of Zimbabwe.',
+    safety:'The site is generally safe. Wear sturdy shoes for the Hill Complex — the steps are steep and uneven.',
+    tip:'Hire a certified guide at the entrance (≈$10–15). The on-site museum provides essential context that transforms your understanding of the ruins.',
+    months:'April to September is ideal — cooler and drier. Avoid December–February which can be very hot and wet.',
+    costs:{
+      budget:{hotel:'$20–45',meals:'$7–15',act:'$10–30',trans:'$10–25',totLow:120,totHigh:240},
+      mid:   {hotel:'$50–100',meals:'$12–25',act:'$25–60',trans:'$20–50',totLow:320,totHigh:600},
+      luxury:{hotel:'$120–280',meals:'$25–60',act:'$60–150',trans:'$50–120',totLow:800,totHigh:1800},
+    }
+  },
+  'eastern-highlands': {
+    name:'Eastern Highlands', province:'Manicaland Province',
+    bestMonths:'Apr–Oct', peakIdxs:[3,4,5,6,7,8,9],
+    badges:'<span class="badge b-green">Mountain Escape</span>',
+    img:'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=85&fit=crop',
+    desc:'Zimbabwe\'s green mountain escape — misty peaks, spectacular waterfalls, trout fishing, and cool highland air. Nyanga National Park features Mount Nyangani, Zimbabwe\'s highest peak at 2,592m.',
+    safety:'Mountain weather changes rapidly. Always carry a rain jacket and tell someone your hiking route before setting out.',
+    tip:'Mutare is the gateway city — fly or drive from Harare (3hrs). Combine Nyanga and Chimanimani in one trip for best value.',
+    months:'April to October is ideal. The highlands are cool and refreshing year-round compared to the lowlands.',
+    costs:{
+      budget:{hotel:'$20–40',meals:'$7–15',act:'$10–40',trans:'$10–25',totLow:100,totHigh:220},
+      mid:   {hotel:'$50–110',meals:'$12–25',act:'$30–80',trans:'$20–50',totLow:280,totHigh:560},
+      luxury:{hotel:'$120–300',meals:'$25–60',act:'$60–180',trans:'$50–120',totLow:700,totHigh:1800},
+    }
+  }
+};
+
+let currentDest = 'victoria-falls';
+let currentTier = 'mid';
+let currentDays  = 5;
+
+// ── PAGE SWITCHER ─────────────────────────────────
+function showPage(page, destKey) {
+  document.getElementById('page-explore').style.display = page==='explore'?'block':'none';
+  document.getElementById('page-detail').style.display  = page==='detail'?'flex':'none';
+  document.querySelectorAll('.demo-tab').forEach((t,i)=>{
+    t.classList.toggle('active', (page==='explore'&&i===0)||(page==='detail'&&i===1));
+  });
+  if(page==='detail' && destKey) loadDest(destKey);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── LOAD DESTINATION DATA ─────────────────────────
+function loadDest(key) {
+  currentDest = key;
+  const d = DESTS[key];
+  if(!d) return;
+
+  // Hero
+  document.getElementById('detail-hero-bg').style.backgroundImage = `url('${d.img}')`;
+  document.getElementById('detail-title').textContent = d.name;
+  document.getElementById('detail-province').innerHTML = `📍 ${d.province}, Zimbabwe &nbsp;·&nbsp; 🌤️ Best: ${d.bestMonths}`;
+  document.getElementById('detail-badges').innerHTML = d.badges;
+
+  // Text
+  document.getElementById('detail-desc').innerHTML = d.desc;
+  document.getElementById('detail-safety').textContent = d.safety;
+  document.getElementById('detail-tip').textContent = d.tip;
+  document.getElementById('detail-months').textContent = d.months;
+
+  // Months highlight
+  document.querySelectorAll('.month-pill').forEach((p,i)=>{
+    p.classList.toggle('peak', d.peakIdxs.includes(i));
+  });
+
+  // Widget
+  document.getElementById('widget-title').textContent = d.name;
+
+  // Sync sidebar switcher
+  document.querySelectorAll('.dest-sw-btn').forEach(b=>{
+    b.classList.toggle('active', b.getAttribute('onclick').includes(key));
+  });
+
+  updateCosts();
+}
+
+// ── SWITCH DESTINATION (sidebar) ──────────────────
+function switchDest(btn, key) {
+  loadDest(key);
+}
+
+// ── SWITCH TAB ────────────────────────────────────
+function switchTab(btn, tabId) {
+  ['tab-overview','tab-activities','tab-stays','tab-costs'].forEach(id=>{
+    document.getElementById(id).style.display = id===tabId?'block':'none';
+  });
+  document.querySelectorAll('.detail-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  // re-trigger reveals
+  triggerReveals();
+}
+
+// ── SWITCH TIER ───────────────────────────────────
+function switchTier(btn, tier) {
+  currentTier = tier;
+  document.querySelectorAll('.tier-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  updateCosts();
+}
+
+// ── SELECT DAYS ───────────────────────────────────
+function selectDays(btn, days) {
+  currentDays = days;
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  updateCosts();
+}
+
+// ── UPDATE COST WIDGET ────────────────────────────
+function updateCosts() {
+  const d = DESTS[currentDest];
+  const c = d.costs[currentTier];
+  document.getElementById('cr-hotel').textContent  = c.hotel;
+  document.getElementById('cr-meals').textContent  = c.meals;
+  document.getElementById('cr-act').textContent    = c.act;
+  document.getElementById('cr-trans').textContent  = c.trans;
+
+  const lo = Math.round(c.totLow  * currentDays/5);
+  const hi = Math.round(c.totHigh * currentDays/5);
+  document.getElementById('total-val').textContent  = `~$${lo}–$${hi}`;
+  document.getElementById('total-days').textContent = `${currentDays} days · ${currentTier.replace('mid','mid-range')} · per person`;
+}
+
+// ── FILTER CARDS ──────────────────────────────────
+function filterCards(btn, tag) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const cards = document.querySelectorAll('.dest-card[data-tag]');
+  let visible = 0;
+  cards.forEach(c=>{
+    const show = tag==='All' || c.dataset.tag===tag;
+    c.style.display = show?'':'none';
+    if(show) visible++;
+  });
+  document.getElementById('filter-count').textContent = `${visible} destination${visible!==1?'s':''}`;
+}
+
+// ── SCROLL REVEALS ────────────────────────────────
+function triggerReveals() {
+  const els = document.querySelectorAll('.reveal:not(.in)');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('in'), i*80);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:.12});
+  els.forEach(el=>obs.observe(el));
+}
+document.addEventListener('DOMContentLoaded', triggerReveals);
+window.addEventListener('scroll', triggerReveals, {passive:true});
+
+// init
+updateCosts();
+</script>
+</body>
+</html>
