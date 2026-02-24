@@ -58,9 +58,9 @@ export default function DestinationPage() {
               padding: '18px 24px', border: 'none', background: 'transparent',
               color: activeTab === tab ? '#D4A843' : '#8C7B6B',
               borderBottom: activeTab === tab ? '2px solid #D4A843' : '2px solid transparent',
-              fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase',
-              fontFamily: "'Outfit',sans-serif", cursor: 'pointer', transition: 'color 0.2s',
-              textTransform: 'capitalize',
+              fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px',
+	      fontFamily: "'Outfit',sans-serif", cursor: 'pointer', transition: 'color 0.2s',
+	      textTransform: 'capitalize',
             }}>{tab}</button>
           ))}
         </div>
