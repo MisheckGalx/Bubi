@@ -48,8 +48,6 @@ class DestinationOut(DestinationBase):
 
 
 class DestinationDetail(DestinationOut):
-    from app.schemas.activity import ActivityOut
-    from app.schemas.accommodation import AccommodationOut
     activities: List[Any] = []
     accommodations: List[Any] = []
 

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useReveal } from '../hooks/useReveal';
-import { destinations, travelAlerts, activities } from '../data/mockData';
+import { getDestinations, getAlerts, getActivities } from '../services/api';
 
 // ── HERO ───────────────────────────────────────────────────
-function Hero() {
+function Hero({ destinations = [] }) {
   const [where, setWhere] = useState('');
   const [budget, setBudget] = useState('mid');
   const navigate = useNavigate();
@@ -126,7 +126,7 @@ function StatsBar() {
 }
 
 // ── DESTINATION GRID ───────────────────────────────────────
-function DestinationGrid() {
+function DestinationGrid({ destinations = [] }) {
   const ref = useReveal(0.1);
   const featured = destinations.filter(d => d.is_featured);
   const rest = destinations.filter(d => !d.is_featured);
@@ -183,9 +183,11 @@ function DestCard({ dest, big, imgH = '255px', style: extraStyle }) {
 }
 
 // ── DESTINATION INFO PANEL (like mockup) ────────────────────
-function DestinationPanel() {
-  const [activeDest, setActiveDest] = useState(destinations[2]); // Kariba default
+function DestinationPanel({ destinations = [], activities = [] }) {
+  const [activeDest, setActiveDest] = useState(null);
+  useEffect(() => { if (destinations.length > 0) setActiveDest(destinations[2] || destinations[0]); }, [destinations]);
   const ref = useReveal(0.1);
+  if (!activeDest) return null;
   const destActivities = activities.filter(a => a.destination_id === activeDest.id).slice(0,3);
   const prices = activeDest.prices.mid;
 
@@ -312,7 +314,7 @@ function PlanCards() {
 }
 
 // ── TRAVEL ALERTS ───────────────────────────────────────────
-function TravelAlerts() {
+function TravelAlerts({ travelAlerts = [] }) {
   const ref = useReveal(0.1);
   const alertColors = { info:'#2E86AB', warning:'#E67E22', danger:'#C0392B' };
   return (
@@ -370,14 +372,24 @@ function CTA() {
 
 // ── PAGE ────────────────────────────────────────────────────
 export default function HomePage() {
+  const [destinations, setDestinations] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [travelAlerts, setTravelAlerts] = useState([]);
+
+  useEffect(() => {
+    getDestinations().then(setDestinations).catch(() => {});
+    getActivities().then(setActivities).catch(() => {});
+    getAlerts().then(setTravelAlerts).catch(() => {});
+  }, []);
+
   return (
     <>
-      <Hero />
+      <Hero destinations={destinations} />
       <StatsBar />
-      <DestinationGrid />
-      <DestinationPanel />
+      <DestinationGrid destinations={destinations} />
+      <DestinationPanel destinations={destinations} activities={activities} />
       <PlanCards />
-      <TravelAlerts />
+      <TravelAlerts travelAlerts={travelAlerts} />
       <CTA />
     </>
   );

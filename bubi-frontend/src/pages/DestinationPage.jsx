@@ -15,8 +15,8 @@ export default function DestinationPage() {
     </div>
   );
 
-  const destActivities = activities.filter(a => a.destination_id === dest.id);
-  const destAccomm = accommodations.filter(a => a.destination_id === dest.id);
+  const destActivities = dest.activities || [];
+  const destAccomm = dest.accommodations || [];
   const prices = dest.prices[budgetTier];
 
   const tabs = ['overview', 'activities', 'accommodations', 'costs'];
